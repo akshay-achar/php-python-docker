@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  product_service:
+     build: ./project/python
+     container_name: python_docker
+     volumes:
+       - ./project/python:/usr/src/app
+     ports:
+       - 5001:80 
+  website:
+     image: php:7.2.14-apache-stretch
+     container_name: php_docker
+     volumes:
+      - ./project/php:/var/www/html
+     ports:
+       - 5002:80
+     depends_on:
+       - product_service
